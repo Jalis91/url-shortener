@@ -4,37 +4,76 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <title>Raccourcisseur d'URL</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,400;12..96,600&family=Unbounded:wght@500;800&display=swap" rel="stylesheet">
   <link rel="stylesheet" href="style.css">
 </head>
 <body>
-  <main class="card">
-    <header>
-      <h1>Raccourcisseur d'URL</h1>
-      <span id="status" class="status">Connexion…</span>
-    </header>
+  <canvas id="bg" aria-hidden="true"></canvas>
+  <canvas id="fx" aria-hidden="true"></canvas>
 
-    <section class="stats">
-      <div class="stat"><span id="stat-links">0</span><small>liens</small></div>
-      <div class="stat"><span id="stat-clicks">0</span><small>clics</small></div>
-      <div class="stat top"><span id="stat-top">—</span><small>lien le plus cliqué</small></div>
+  <main class="shell">
+    <header class="top">
+      <h1 class="title" id="title">Raccourcisseur d'URL</h1>
+      <span id="status" class="status">
+        <span class="status-dot" aria-hidden="true"></span>
+        <span id="status-text">Connexion…</span>
+      </span>
+    </header>
+    <p class="lede">Collez un lien interminable. Repartez avec un lien court, prêt à partager.</p>
+
+    <section class="card" id="card">
+      <div class="stats">
+        <div class="stat">
+          <span class="stat-num" id="stat-links">0</span>
+          <span class="stat-label">liens</span>
+        </div>
+        <div class="stat">
+          <span class="stat-num" id="stat-clicks">0</span>
+          <span class="stat-label">clics</span>
+        </div>
+        <div class="stat stat-top">
+          <span class="stat-num" id="stat-top">—</span>
+          <span class="stat-label">lien le plus cliqué</span>
+        </div>
+      </div>
+
+      <form id="form" novalidate>
+        <label class="field field-url">
+          <span class="sr-only">URL à raccourcir</span>
+          <input id="url" type="url" placeholder="https://exemple.com/une/très/longue/url" required autocomplete="off">
+        </label>
+        <label class="field field-alias">
+          <span class="sr-only">Alias (optionnel)</span>
+          <input id="alias" type="text" placeholder="alias (optionnel)" maxlength="32" autocomplete="off">
+        </label>
+        <button type="submit" id="shorten-btn" class="btn btn-main magnetic"><span>Raccourcir</span></button>
+      </form>
+
+      <p id="message" class="message" role="status" hidden></p>
+
+      <div id="result" class="result" hidden>
+        <a id="result-link" href="#" target="_blank" rel="noopener"></a>
+        <button type="button" id="result-copy" class="btn btn-ghost">Copier</button>
+      </div>
     </section>
 
-    <form id="form" novalidate>
-      <input id="url" type="url" placeholder="https://exemple.com/une/très/longue/url" required autofocus>
-      <input id="alias" type="text" placeholder="alias (optionnel)" maxlength="32" autocomplete="off">
-      <button type="submit">Raccourcir</button>
-    </form>
-    <p id="message" class="message" hidden></p>
-
-    <section>
-      <h2>Tous les liens <small id="refresh-info">mise à jour automatique</small></h2>
-      <p id="empty" class="empty" hidden>Aucun lien pour le moment.</p>
-      <table id="table" hidden>
-        <thead><tr><th>Lien court</th><th>Destination</th><th>Clics</th><th></th></tr></thead>
-        <tbody id="links"></tbody>
-      </table>
+    <section class="links">
+      <div class="links-head">
+        <h2>Tous les liens</h2>
+        <span class="live"><span class="live-dot" aria-hidden="true"></span>en direct</span>
+      </div>
+      <p id="empty" class="empty" hidden>Aucun lien pour l'instant. Le premier est pour vous.</p>
+      <div class="table-wrap">
+        <table id="table" hidden>
+          <thead><tr><th>Lien court</th><th>Destination</th><th>Clics</th><th><span class="sr-only">Actions</span></th></tr></thead>
+          <tbody id="links"></tbody>
+        </table>
+      </div>
     </section>
   </main>
+
   <script src="script.js"></script>
 </body>
 </html>
