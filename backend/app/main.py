@@ -3,7 +3,6 @@ import re
 import secrets
 import sqlite3
 import string
-from typing import Optional
 
 from fastapi import FastAPI, HTTPException, Response
 from fastapi.responses import RedirectResponse
@@ -19,7 +18,7 @@ app = FastAPI(title="URL Shortener API")
 
 class LinkIn(BaseModel):
     url: HttpUrl
-    alias: Optional[str] = None
+    alias: str | None = None
 
 
 def get_db():
