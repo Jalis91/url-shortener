@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Raccourcisseur d'URL</title>
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+  <main class="card">
+    <header>
+      <h1>Raccourcisseur d'URL</h1>
+      <span id="status" class="status">Connexion…</span>
+    </header>
+
+    <section class="stats">
+      <div class="stat"><span id="stat-links">0</span><small>liens</small></div>
+      <div class="stat"><span id="stat-clicks">0</span><small>clics</small></div>
+      <div class="stat top"><span id="stat-top">—</span><small>lien le plus cliqué</small></div>
+    </section>
+
+    <form id="form" novalidate>
+      <input id="url" type="url" placeholder="https://exemple.com/une/très/longue/url" required autofocus>
+      <input id="alias" type="text" placeholder="alias (optionnel)" maxlength="32" autocomplete="off">
+      <button type="submit">Raccourcir</button>
+    </form>
+    <p id="message" class="message" hidden></p>
+
+    <section>
+      <h2>Tous les liens <small id="refresh-info">mise à jour automatique</small></h2>
+      <p id="empty" class="empty" hidden>Aucun lien pour le moment.</p>
+      <table id="table" hidden>
+        <thead><tr><th>Lien court</th><th>Destination</th><th>Clics</th><th></th></tr></thead>
+        <tbody id="links"></tbody>
+      </table>
+    </section>
+  </main>
+  <script src="script.js"></script>
+</body>
+</html>

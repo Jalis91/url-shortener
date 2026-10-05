@@ -1,0 +1,12 @@
+{
+  "name": "url-shortener-frontend",
+  "version": "1.0.0",
+  "description": "Serveur web du front-end du raccourcisseur d'URL",
+  "scripts": {
+    "start": "node server.js"
+  },
+  "dependencies": {
+    "express": "^4.21.0",
+    "http-proxy-middleware": "^4.2.0"
+  }
+}
